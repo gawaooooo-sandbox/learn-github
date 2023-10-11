@@ -33,12 +33,15 @@ jobs:
 
       - name: Run check
         run: cargo check
+        working-directory: ${{env.working-directory}}
 
       - name: Run clippy
         run: cargo clippy --color always --verbose --workspace --all-targets
+        working-directory: ${{env.working-directory}}
 
       - name: Run rustfmt
         run: cargo fmt --all --check --verbose
+        working-directory: ${{env.working-directory}}
 
   test:
     name: Test
@@ -55,3 +58,4 @@ jobs:
 
       - name: Run test
         run: cargo test
+        working-directory: ${{env.working-directory}}
