@@ -28,7 +28,41 @@ jobs:
       - name: Build
         run: |
           echo "npm package root namespace > ${{ github.repository_owner }}"
-          ls -R
-          wasm-pack build --target web --scope  ${{ github.repository_owner }}
+          wasm-pack build --target web --scope ${{ github.repository_owner }}
           ls -lah pkg
+          cat pkg/package.json
         working-directory: rust/hello-wasm
+
+      - name: Upload build result
+        uses: actions/upload-artifact@v3
+        with:
+          name: pkg
+          path: rust/hello-wasm/pkg
+          retention-days: 5
+
+  publish:
+    name: Publish Node.js package
+    needs: build
+    runs-on: ubuntu-22.04
+
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Download build result
+        uses: actions/download-artifact@v3
+        with:
+          name: pkg
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.17.0
+          registry-url: https://npm.pkg.github.com
+          scope: "@${{ github.repository_owner }}"
+      - name: test
+        run: |
+          pwd
+          ls -la
+      # - name: publish
+      #   run: npm publish
