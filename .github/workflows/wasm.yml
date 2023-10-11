@@ -26,5 +26,9 @@ jobs:
           wasm-pack --version
 
       - name: Build
-        run: echo "${{ github.repository_owner }}"
+        run: |
+          echo "npm package root namespace > ${{ github.repository_owner }}"
+          ls -R
+          wasm-pack build --target web --scope  ${{ github.repository_owner }}
+          ls -lah pkg
         working-directory: rust/hello-wasm
