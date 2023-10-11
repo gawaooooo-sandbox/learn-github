@@ -13,10 +13,12 @@ jobs:
   lint:
     name: Lint
     runs-on: ubuntu-22.04
+    defaults:
+      run:
+        working-directory: rust
 
     steps:
       - run: pwd
-      - run: ls
       - run: cat $GITHUB_EVENT_PATH
 
       - name: Checkout sources
