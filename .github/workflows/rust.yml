@@ -1,52 +1,52 @@
 name: Rust lint & test
 
-on: 
-    push:
-        branches: [ $default-branch ]
-    pull_request:
-        branches: [ $default-branch ]
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
 
 env:
-    CARGO_TERM_COLOR: always
+  CARGO_TERM_COLOR: always
 
 jobs:
-    lint:
-        name: Lint
-        runs-on: ubuntu-22.04
+  lint:
+    name: Lint
+    runs-on: ubuntu-22.04
 
-        steps:
-        - run: cat $GITHUB_EVENT_PATH
-    
-        - name: Checkout sources
-          uses: actions/checkout@v3
+    steps:
+      - run: cat $GITHUB_EVENT_PATH
 
-        - name: Setup toolchain
-          run: |
-            rustup default 1.72
-            rustup component add clippy
-            rustup component add rustfmt
-        
-        - name: Run check
-          run: cargo check
-        
-        - name: Run clippy
-          run: cargo clippy --color always --verbose --workspace --all-targets
-        
-        - name: Run rustfmt
-          run: cargo fmt --all --check --verbose
+      - name: Checkout sources
+        uses: actions/checkout@v3
 
-    test:
-        name: Test
-        runs-on: ubuntu-22.04
+      - name: Setup toolchain
+        run: |
+          rustup default 1.72
+          rustup component add clippy
+          rustup component add rustfmt
 
-        steps:
-        - run: cat $GITHUB_EVENT_PATH 
+      - name: Run check
+        run: cargo check
 
-        - name: Checkout sources
-          uses: actions/checkout@v3
+      - name: Run clippy
+        run: cargo clippy --color always --verbose --workspace --all-targets
 
-        - name: Setup toolchain
-          run: rustup default 1.72
-        
-        - name: Run test
-          run: cargo test
+      - name: Run rustfmt
+        run: cargo fmt --all --check --verbose
+
+  test:
+    name: Test
+    runs-on: ubuntu-22.04
+
+    steps:
+      - run: cat $GITHUB_EVENT_PATH
+
+      - name: Checkout sources
+        uses: actions/checkout@v3
+
+      - name: Setup toolchain
+        run: rustup default 1.72
+
+      - name: Run test
+        run: cargo test
