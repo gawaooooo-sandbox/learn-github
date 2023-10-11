@@ -2,7 +2,7 @@ name: Rust lint & test
 
 defaults:
   run:
-    working-directory: rust
+    working-directory: ./rust
 
 on:
   push:
