@@ -1,8 +1,4 @@
-name: Rust lint & test
-
-defaults:
-  run:
-    working-directory: ./rust
+name: Rust lint & test    
 
 on:
   push:
@@ -19,6 +15,7 @@ jobs:
     runs-on: ubuntu-22.04
 
     steps:
+      - run: pwd && ls
       - run: cat $GITHUB_EVENT_PATH
 
       - name: Checkout sources
