@@ -8,20 +8,22 @@ on:
 
 env:
   CARGO_TERM_COLOR: always
+  working-directory: rust
 
 jobs:
   lint:
     name: Lint
     runs-on: ubuntu-22.04
-    defaults:
-      run:
-        working-directory: rust
 
     steps:
       - run: cat $GITHUB_EVENT_PATH
 
       - name: Checkout sources
         uses: actions/checkout@v3
+
+      - name: working directory
+        run: ls -R
+        working-directory: ${{env.working-directory}}
 
       - name: Setup toolchain
         run: |
