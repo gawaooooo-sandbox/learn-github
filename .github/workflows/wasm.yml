@@ -20,6 +20,9 @@ jobs:
       - name: Checkout sources
         uses: actions/checkout@v3
 
+      - name: Setup toolchain
+        run: rustup default 1.72
+
       - name: Install wasm-pack
         run: |
           curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh
