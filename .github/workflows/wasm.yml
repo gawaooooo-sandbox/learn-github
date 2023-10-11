@@ -1,0 +1,30 @@
+name: Wasm-pack build & publish Node.js package
+
+# 手動実行のみ
+on:
+  workflow_dispatch:
+
+env:
+  CARGO_TERM_COLOR: always
+  working-directory: rust
+
+jobs:
+  build:
+    name: Build wasm
+    runs-on: ubuntu-22.04
+
+    steps:
+      # デバッグ用
+      - run: cat $GITHUB_EVENT_PATH
+
+      - name: Checkout sources
+        uses: actions/checkout@v3
+
+      - name: Install wasm-pack
+        run: |
+          curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh
+          wasm-pack --version
+
+      - name: Build
+        run: echo "${{ github.repository_owner }}"
+        working-directory: rust/hello-wasm
