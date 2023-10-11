@@ -1,5 +1,9 @@
 name: Rust lint & test
 
+defaults:
+  run:
+    working-directory: rust
+
 on:
   push:
     branches: ["main"]
@@ -26,9 +30,6 @@ jobs:
           rustup component add clippy
           rustup component add rustfmt
 
-      - name: Change root
-        run: cd rust
-
       - name: Run check
         run: cargo check
 
@@ -50,9 +51,6 @@ jobs:
 
       - name: Setup toolchain
         run: rustup default 1.72
-
-      - name: Change root
-        run: cd rust
 
       - name: Run test
         run: cargo test
