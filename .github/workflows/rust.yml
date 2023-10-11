@@ -15,7 +15,8 @@ jobs:
     runs-on: ubuntu-22.04
 
     steps:
-      - run: pwd && ls
+      - run: pwd
+      - run: ls
       - run: cat $GITHUB_EVENT_PATH
 
       - name: Checkout sources
